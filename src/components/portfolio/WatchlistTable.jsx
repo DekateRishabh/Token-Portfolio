@@ -85,11 +85,6 @@ const WatchlistTable = () => {
   if (tokens.length === 0) {
     return (
       <div className="bg-dark-card shadow-dark-card rounded-xl border border-dark-border">
-        <div className="px-6 py-4 border-b border-dark-border">
-          <h3 className="text-lg font-semibold text-dark-text-primary">
-            ⭐ Your Watchlist
-          </h3>
-        </div>
         <div className="text-center py-12">
           <svg
             className="mx-auto h-12 w-12 text-dark-text-muted mb-4"
@@ -110,9 +105,6 @@ const WatchlistTable = () => {
           <p className="text-dark-text-secondary mb-4">
             Add some tokens to start tracking your portfolio
           </p>
-          <button className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-dark-bg bg-teal-400 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-            Add Your First Token
-          </button>
         </div>
       </div>
     );
