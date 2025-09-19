@@ -22,7 +22,7 @@ const EditableCell = ({
     <div className="flex items-center space-x-2">
       <input
         type="number"
-        step="0.1"
+        step="1"
         value={editValue}
         onChange={(e) => setEditValue(e.target.value)}
         className="w-20 px-2 py-1 bg-dark-surface border border-dark-border rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-dark-text-primary"
