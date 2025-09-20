@@ -18,7 +18,7 @@ export const formatPercentage = (value) => {
 
 export const formatTimestamp = (timestamp) => {
   if (!timestamp) return "Never";
-  return new Date(timestamp).toLocaleString();
+  return new Date(timestamp).toLocaleTimeString();
 };
 
 export const formatNumber = (num) => {

@@ -12,6 +12,7 @@ import RefreshButton from "./components/portfolio/RefreshButton";
 import WalletConnection from "./components/wallet/WalletConnection";
 import LoadingSpinner from "./components/common/LoadingSpinner";
 import AddTokenModal from "./components/modals/AddTokenModal";
+import logo from "./assets/logo.png";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./index.css";
 
@@ -19,6 +20,14 @@ const queryClient = new QueryClient();
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const TokenPortfolioLogo = () => (
+    <img
+      src={logo}
+      alt="Token Portfolio Logo"
+      className="w-10 h-10 rounded-xl object-cover"
+    />
+  );
 
   return (
     <WagmiProvider config={config}>
@@ -35,7 +44,8 @@ function App() {
                   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                       <div className="flex items-center space-x-3">
-                        <h1 className="text-2xl font-bold text-dark-text-primary">
+                        <TokenPortfolioLogo />
+                        <h1 className="text-2xl font-semibold text-dark-text-primary">
                           Token Portfolio
                         </h1>
                       </div>
@@ -51,16 +61,26 @@ function App() {
                     <PortfolioCard />
 
                     {/* Action Bar */}
-                    <div className="flex flex-col sm:flex-row  items-start sm:items-center gap-4">
-                      <h3 className="text-xl font-semibold text-dark-text-primary">
-                        ⭐ Watchlist
-                      </h3>
+                    <div className="flex justify-between items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <svg
+                          className="w-8 h-8 text-lime-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        <h3 className="text-xl font-semibold text-dark-text-primary">
+                          Watchlist
+                        </h3>
+                      </div>
 
                       <div className="flex flex-wrap gap-3 ml-auto">
                         <RefreshButton />
                         <button
                           onClick={() => setIsModalOpen(true)}
-                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-dark-bg bg-yellow-300 hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-dark-bg bg-lime-400 hover:bg-lime-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
                         >
                           <svg
                             className="w-5 h-5"

@@ -23,75 +23,100 @@ const PortfolioCard = () => {
     };
   });
 
-  //24h change
-  // const totalChange24h = portfolioData.reduce((sum, token) => {
-  //   const holdings = token.holdings || 0;
-  //   const price = token.current_price || 0;
-  //   const pctChange = token.price_change_percentage_24h || 0;
-  //   const change = holdings * price * (pctChange / 100);
-  //   return sum + change;
-  // }, 0);
-
-  // const isPositive = totalChange24h >= 0;
-
   return (
-    <div className="bg-dark-card shadow-dark-card rounded-xl p-6 border border-dark-border">
-      <div className="flex items-start justify-between ">
-        <div>
+    <div className="bg-dark-card shadow-dark-card rounded-xl p-4 border border-dark-border">
+      {/* Mobile Layout: Stack everything vertically */}
+      <div className="block lg:hidden">
+        <div className="mb-6">
           <h2 className="text-lg font-semibold text-dark-text-muted">
             Portfolio Total
           </h2>
-          <div className="text-6xl font-bold text-dark-text-primary mt-3">
+          <div className="text-4xl font-bold text-dark-text-primary mt-3">
             {formatCurrency(totalValue)}
           </div>
-          <div className="text-m text-dark-text-primary mt-3">
-            {portfolioData.length} tokens in portfolio
+          <div className="text-sm mt-3 text-dark-text-muted">
+            Last updated: {formatTimestamp(lastUpdated)}
           </div>
-
-          {/* If want 24h percent change
-          <div className="text-m text-dark-text-muted mt-10">24h Change</div>
-          <div
-            className={`text-lg font-semibold ${
-              isPositive ? "text-green-400" : "text-red-400"
-            }`}
-          >
-            {isPositive ? "+" : ""}
-            {formatCurrency(totalChange24h)}
-          </div> */}
         </div>
 
-        <div className="flex flex-col lg:flex-row items-start lg:items-center mt-4">
-          <div className="flex-1"></div>
+        <div className="mb-4">
+          <h3 className="text-lg font-semibold text-dark-text-muted">
+            Portfolio Total
+          </h3>
+        </div>
 
-          <div className="flex items-center">
-            <div className="flex-shrink-0 ">
-              <DonutChart data={portfolioData} />
-            </div>
-          </div>
+        <div className="flex justify-center mb-6">
+          <DonutChart data={portfolioData} />
+        </div>
 
-          {/* Holdings Percentages */}
-          <div className="flex flex-col justify-center text-sm space-y-2">
-            {holdingsPercentages.map((token, index) => (
-              <div
-                key={token.symbol}
-                className="flex justify-between gap-x-24 text-dark-text-secondary"
+        <div className="space-y-3 mb-6">
+          {holdingsPercentages.map((token, index) => (
+            <div
+              key={token.symbol}
+              className="flex justify-between items-center text-sm"
+            >
+              <span
+                className="font-medium"
+                style={{ color: CHART_COLORS[index % CHART_COLORS.length] }}
               >
-                <span
-                  className="font-medium"
-                  style={{ color: CHART_COLORS[index % CHART_COLORS.length] }}
-                >
-                  {token.name} ({token.symbol.toUpperCase()})
-                </span>
-                <span>{token.percentage.toFixed(2)}%</span>
-              </div>
-            ))}
-          </div>
+                {token.name} ({token.symbol.toUpperCase()})
+              </span>
+              <span className="text-dark-text-secondary">
+                {token.percentage.toFixed(1)}%
+              </span>
+            </div>
+          ))}
         </div>
       </div>
 
-      <span className="text-sm text-dark-text-secondary">
-        Last updated: {formatTimestamp(lastUpdated)}
-      </span>
+      {/* Desktop Layout: Keep your original layout */}
+      <div className="hidden lg:block">
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-dark-text-muted">
+              Portfolio Total
+            </h2>
+            <div className="text-6xl font-bold text-dark-text-primary mt-3">
+              {formatCurrency(totalValue)}
+            </div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row items-start lg:items-center">
+            <div className="flex-1"></div>
+
+            <div className="flex flex-col items-center">
+              <h3 className="text-lg font-semibold text-dark-text-muted">
+                Portfolio Total
+              </h3>
+              <div className="flex-shrink-0">
+                <DonutChart data={portfolioData} />
+              </div>
+            </div>
+
+            {/* Holdings Percentages */}
+            <div className="flex flex-col justify-center text-sm space-y-4 ml-6">
+              {holdingsPercentages.map((token, index) => (
+                <div
+                  key={token.symbol}
+                  className="flex justify-between gap-x-64 text-dark-text-secondary"
+                >
+                  <span
+                    className="font-medium"
+                    style={{ color: CHART_COLORS[index % CHART_COLORS.length] }}
+                  >
+                    {token.name} ({token.symbol.toUpperCase()})
+                  </span>
+                  <span>{token.percentage.toFixed(2)}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <span className="text-sm text-dark-text-muted">
+          Last updated: {formatTimestamp(lastUpdated)}
+        </span>
+      </div>
     </div>
   );
 };

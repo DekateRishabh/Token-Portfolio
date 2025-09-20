@@ -35,21 +35,23 @@ const RefreshButton = () => {
 
   return (
     <div className="flex items-center gap-3">
-      {lastUpdated && (
+      {/* {lastUpdated && (
         <span className="text-xs text-dark-text-muted">
           Updated {getTimeAgo(lastUpdated)}
         </span>
-      )}
+      )} */}
       <button
         onClick={handleRefresh}
         disabled={loading || tokens.length === 0}
-        className="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg text-gray-300 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+        className="inline-flex items-center px-3 sm:px-4 py-2 border border-gray-600 text-sm font-medium rounded-lg text-gray-300 bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
         title="Refresh prices"
       >
         <ArrowPathIcon
-          className={`w-4 h-4 mr-2 ${loading ? "animate-spin" : ""}`}
+          className={`w-4 h-4 ${loading ? "animate-spin" : ""} sm:mr-2`}
         />
-        {loading ? "Refreshing..." : "Refresh Prices"}
+        <span className="hidden sm:inline">
+          {loading ? "Refreshing..." : "Refresh Prices"}
+        </span>
       </button>
     </div>
   );

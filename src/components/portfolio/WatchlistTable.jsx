@@ -22,7 +22,7 @@ const EditableCell = ({
     <div className="flex items-center space-x-2">
       <input
         type="number"
-        step="1"
+        step="0.1000"
         value={editValue}
         onChange={(e) => setEditValue(e.target.value)}
         className="w-20 px-2 py-1 bg-dark-surface border border-dark-border rounded focus:outline-none focus:ring-2 focus:ring-yellow-400 text-dark-text-primary"
@@ -32,7 +32,7 @@ const EditableCell = ({
           onSave(editValue);
           setEditingTokenId(null);
         }}
-        className="w-16 h-8 px-2 py-1 bg-yellow-400 text-dark-bg text-xs font-medium rounded hover:bg-yellow-500 transition"
+        className="w-16 h-8 px-2 py-1 bg-lime-400 text-dark-bg text-xs font-medium rounded hover:bg-lime-600 transition"
       >
         Save
       </button>
@@ -46,7 +46,7 @@ const WatchlistTable = () => {
   const dispatch = useDispatch();
   const { tokens, loading } = useSelector((state) => state.portfolio);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(6);
+  const [itemsPerPage] = useState(10);
   const [editingTokenId, setEditingTokenId] = useState(null);
 
   // Pagination logic
@@ -116,30 +116,28 @@ const WatchlistTable = () => {
         <table className="min-w-full divide-y divide-dark-border">
           <thead className="bg-dark-surface">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted tracking-wider">
                 Token
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted tracking-wider">
                 Price
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted tracking-wider">
                 24h %
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted tracking-wider">
                 Sparkline (7d)
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted  tracking-wider">
                 Holdings
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted  tracking-wider">
                 Value
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-dark-text-muted uppercase tracking-wider">
-                Actions
-              </th>
+              <th className="px-6 py-3 text-left text-s font-normal text-dark-text-muted tracking-wider"></th>
             </tr>
           </thead>
-          <tbody className="bg-dark-card divide-y divide-dark-border">
+          <tbody className="bg-dark-card">
             {currentTokens.map((token) => (
               <tr
                 key={token.id}
@@ -150,24 +148,24 @@ const WatchlistTable = () => {
                     <img
                       src={token.image}
                       alt={token.name}
-                      className="h-10 w-10 rounded-full mr-3"
+                      className="h-8 w-8 rounded-full mr-3"
                       onError={(e) => {
                         e.target.src =
                           "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNjY2MiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjwvc3ZnPg==";
                       }}
                     />
-                    <div>
-                      <div className="text-sm font-medium text-dark-text-primary">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-normal text-dark-text-primary">
                         {token.name}
-                      </div>
-                      <div className="text-sm text-dark-text-secondary">
-                        {token.symbol.toUpperCase()}
-                      </div>
+                      </span>
+                      <span className="text-sm font-normal text-dark-text-muted">
+                        ({token.symbol.toUpperCase()})
+                      </span>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap ">
-                  <div className="text-sm font-medium text-dark-text-primary">
+                  <div className="text-sm font-medium text-dark-text-muted">
                     {formatCurrency(token.current_price)}
                   </div>
                 </td>
@@ -198,7 +196,7 @@ const WatchlistTable = () => {
                                 ? "#10b981"
                                 : "#ef4444",
                             fill: "none",
-                            strokeWidth: 2,
+                            strokeWidth: 1,
                           }}
                         />
                       </Sparklines>
@@ -221,7 +219,7 @@ const WatchlistTable = () => {
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-dark-text-primary">
+                  <div className="text-sm font-normal text-dark-text-primary">
                     {formatCurrency(
                       (token.holdings || 0) * (token.current_price || 0)
                     )}
@@ -230,7 +228,7 @@ const WatchlistTable = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-center">
                   <Menu as="div" className="relative inline-block text-left">
                     <Menu.Button className="p-2 text-dark-text-secondary hover:text-teal-400">
-                      ⋮
+                      ...
                     </Menu.Button>
                     <Menu.Items className="absolute right-0 mt-2 w-36 bg-dark-surface border border-dark-border rounded-md shadow-lg focus:outline-none z-10">
                       <div className="py-1">

@@ -3,14 +3,12 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 // Exact colors from your screenshot
 export const CHART_COLORS = [
+  "#22c55e", // Green
+  "#a855f7", // Purple
   "#3b82f6", // Blue
-  "#14b8a6", // Teal
+  "#06b6d4", // Cyan
   "#f97316", // Orange
   "#ef4444", // Red
-  "#eab308", // Yellow
-  "#a855f7", // Purple
-  "#ec4899", // Pink
-  "#06b6d4", // Cyan
 ];
 
 const DonutChart = ({ data }) => {
@@ -63,7 +61,7 @@ const DonutChart = ({ data }) => {
             data={chartData}
             cx="50%"
             cy="50%"
-            innerRadius={60}
+            innerRadius={50}
             outerRadius={100}
             dataKey="value"
             stroke="#ffffff"

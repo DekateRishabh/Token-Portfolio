@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { XMarkIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  XMarkIcon,
+  MagnifyingGlassIcon,
+  CheckIcon,
+} from "@heroicons/react/24/outline";
 import { addToken } from "../../store/slices/portfolioSlice";
 import { searchTokens, getTrendingTokens } from "../../services/coingecko";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -94,7 +98,7 @@ const AddTokenModal = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
 
-      <div className="relative bg-[#1e1e1e] text-gray-200 w-[420px] rounded-xl shadow-xl overflow-hidden z-10">
+      <div className="relative bg-[#1e1e1e] text-gray-200 w-[620px] rounded-xl shadow-xl overflow-hidden z-10">
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-400 hover:text-gray-200"
@@ -136,8 +140,10 @@ const AddTokenModal = ({ isOpen, onClose }) => {
                   <li
                     key={token.id}
                     onClick={() => handleTokenSelect(token)}
-                    className={`flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-gray-800 ${
-                      isSelected ? "bg-gray-800" : ""
+                    className={`flex items-center justify-between px-3 py-2 cursor-pointer transition-colors duration-200 ${
+                      isSelected
+                        ? "bg-lime-900/20 hover:bg-lime-900/30"
+                        : "hover:bg-lime-900/10"
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -150,11 +156,18 @@ const AddTokenModal = ({ isOpen, onClose }) => {
                         {token.name} ({token.symbol?.toUpperCase()})
                       </span>
                     </div>
-                    {isSelected ? (
-                      <StarIcon className="w-4 h-4 text-green-400 fill-green-400" />
-                    ) : (
-                      <div className="w-3 h-3 rounded-full border border-gray-400" />
-                    )}
+                    <div className="flex items-center gap-5">
+                      {isSelected && (
+                        <StarIcon className="w-4 h-4 text-lime-400 fill-lime-400" />
+                      )}
+                      {isSelected ? (
+                        <div className="w-4 h-4 bg-lime-400 rounded-full flex items-center justify-center">
+                          <CheckIcon className="w-4 h-4 text-black stroke-1" />
+                        </div>
+                      ) : (
+                        <div className="w-4 h-4 rounded-full border-2 border-gray-400" />
+                      )}
+                    </div>
                   </li>
                 );
               })}
@@ -172,7 +185,11 @@ const AddTokenModal = ({ isOpen, onClose }) => {
           <button
             onClick={handleAddToWatchlist}
             disabled={selectedTokens.length === 0}
-            className="bg-green-500 text-black px-4 py-1.5 text-sm rounded-lg font-medium hover:bg-green-400 disabled:opacity-50"
+            className={`px-4 py-1.5 text-sm rounded-lg font-medium transition-colors duration-200 ${
+              selectedTokens.length === 0
+                ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                : "bg-lime-400 text-black hover:bg-lime-500"
+            }`}
           >
             Add to Wishlist
           </button>
